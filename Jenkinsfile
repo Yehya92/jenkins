@@ -2,38 +2,24 @@ pipeline {
     agent any
 
     stages {
-<<<<<<< HEAD
-        stage('Debug Backend Path') {
-          steps {
-          sh 'ls -R backend'
-    }
-}
-        stage('Deep Backend Inspect') {
-    steps {
-        sh 'ls -R backend/backend'
-    }
-}
-        stage('Find pom.xml') {
-    steps {
-        sh 'find . -name pom.xml'
-    }
-}
-        
-=======
-              
->>>>>>> 0ba9925 (clean backend + Jenkinsfile)
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/yehya92/jenkins.git'
+            }
+        }
 
         stage('Build Backend') {
             steps {
-                dir('backend/backend') {
-                    sh './mvnw clean package -DskipTests=false'
+                dir('backend') {
+                    sh './mvnw clean package -DskipTests'
                 }
             }
         }
 
         stage('Test Backend') {
             steps {
-                dir('backend/backend') {
+                dir('backend') {
                     sh './mvnw test'
                 }
             }
@@ -41,12 +27,8 @@ pipeline {
 
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'backend/backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0ba9925 (clean backend + Jenkinsfile)
