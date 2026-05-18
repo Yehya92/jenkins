@@ -26,5 +26,13 @@ pipeline {
                 archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
             }
         }
+		stage('Build Frontend') {
+    steps {
+        dir('frontend') {
+            sh 'npm install'
+            sh 'npm run build'
+        }
+    }
+}
     }
 }
