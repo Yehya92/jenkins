@@ -16,7 +16,7 @@ pipeline {
         stage('Test Backend') {
             steps {
                 dir('backend') {
-                    sh './mvnw test'
+                    sh 'mvn test'
                 }
             }
         }
