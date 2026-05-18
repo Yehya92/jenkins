@@ -8,7 +8,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 dir('backend') {
-                    sh './mvnw clean package -DskipTests'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
