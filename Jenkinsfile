@@ -3,11 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/yehya92/jenkins.git'
-            }
-        }
+ 
 
         stage('Build Backend') {
             steps {
