@@ -1,0 +1,13 @@
+# Terraform
+.terraform/
+*.tfstate*
+.terraform.lock.hcl
+
+# Node
+node_modules/
+
+# AWS SSH keys
+*.pem
+
+# OS files
+.DS_Store
