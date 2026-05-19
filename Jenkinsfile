@@ -26,8 +26,7 @@ stage('Archive Backend') {
     }
 }
 
-sh 'ls -R backend/target'
-sh 'ls -R frontend/build'
+
 
 stage('Archive Frontend') {
     steps {
