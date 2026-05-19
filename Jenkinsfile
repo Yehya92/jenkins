@@ -20,20 +20,21 @@ pipeline {
             }
         }
 
-        stage('Archive Artifacts') {
+stage('Archive Backend') {
     steps {
-        archiveArtifacts artifacts: '''
-backend/target/*.jar
-frontend/build/**
-''', fingerprint: true
+        archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
     }
 }
-stage('Debug') {
+
+sh 'ls -R backend/target'
+sh 'ls -R frontend/build'
+
+stage('Archive Frontend') {
     steps {
-        sh 'ls -R backend/target || true'
-        sh 'ls -R frontend/build || true'
+        archiveArtifacts artifacts: 'frontend/build/**', fingerprint: true
     }
 }
+
 		stage('Deploy') {
     steps {
         echo 'Déploiement à venir'
