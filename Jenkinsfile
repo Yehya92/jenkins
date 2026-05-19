@@ -1,38 +1,37 @@
 pipeline {
-    agent {label 'worker'}
+    agent { label 'worker' }
 
     stages {
-
- 
 
         stage('Build Backend') {
             steps {
                 dir('backend') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean package'
                 }
             }
         }
 
-        stage('Test Backend') {
+        stage('Build Frontend') {
             steps {
-                dir('backend') {
-                    sh 'mvn clean package -DskipTests'
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
 
-        stage('Archive') {
+        stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: '''
+backend/target/*.jar
+frontend/build/**
+''', fingerprint: true
             }
         }
-		stage('Build Frontend') {
+		stage('Deploy') {
     steps {
-        dir('frontend') {
-            sh 'npm install'
-            sh 'npm run build'
-        }
+        echo 'Déploiement à venir'
     }
-}
+        }
     }
 }
